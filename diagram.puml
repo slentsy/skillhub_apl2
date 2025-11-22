@@ -1,0 +1,164 @@
+@startuml
+set namespaceSeparator ::
+
+class "skillhub_apl2::models::registrasi_model.dart::PesertaTerdaftar" {
+  +Peserta peserta
+  +String tanggal
+}
+
+"skillhub_apl2::models::registrasi_model.dart::PesertaTerdaftar" o-- "skillhub_apl2::models::peserta_model.dart::Peserta"
+
+class "skillhub_apl2::models::registrasi_model.dart::KelasTerambil" {
+  +Kelas kelas
+  +String tanggal
+}
+
+"skillhub_apl2::models::registrasi_model.dart::KelasTerambil" o-- "skillhub_apl2::models::kelas_model.dart::Kelas"
+
+class "skillhub_apl2::models::kelas_model.dart::Kelas" {
+  -int? _id
+  -String _namaKelas
+  -String _deskripsi
+  -String _instruktur
+  +int? id
+  +String namaKelas
+  +String deskripsi
+  +String instruktur
+  +Map<String, dynamic> toMap()
+}
+
+class "skillhub_apl2::models::peserta_model.dart::Peserta" {
+  +int? id
+  +String nama
+  +Map<String, dynamic> toMap()
+}
+
+class "skillhub_apl2::screens::peserta_page.dart::PesertaPage" {
+  +State<PesertaPage> createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "skillhub_apl2::screens::peserta_page.dart::PesertaPage"
+
+class "skillhub_apl2::screens::peserta_page.dart::_PesertaPageState" {
+  -DatabaseHelper _dbHelper
+  -List<Peserta> _listPeserta
+  +void initState()
+  -void _refreshData()
+  -void _showForm()
+  -void _deleteItem()
+  +Widget build()
+}
+
+"skillhub_apl2::screens::peserta_page.dart::_PesertaPageState" o-- "skillhub_apl2::db::database_helper.dart::DatabaseHelper"
+"flutter::src::widgets::framework.dart::State" <|-- "skillhub_apl2::screens::peserta_page.dart::_PesertaPageState"
+
+class "skillhub_apl2::screens::detail_kelas_page.dart::DetailKelasPage" {
+  +Kelas kelas
+  +State<DetailKelasPage> createState()
+}
+
+"skillhub_apl2::screens::detail_kelas_page.dart::DetailKelasPage" o-- "skillhub_apl2::models::kelas_model.dart::Kelas"
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "skillhub_apl2::screens::detail_kelas_page.dart::DetailKelasPage"
+
+class "skillhub_apl2::screens::detail_kelas_page.dart::_DetailKelasPageState" {
+  -DatabaseHelper _dbHelper
+  -void _hapusPesertaDariKelas()
+  +Widget build()
+}
+
+"skillhub_apl2::screens::detail_kelas_page.dart::_DetailKelasPageState" o-- "skillhub_apl2::db::database_helper.dart::DatabaseHelper"
+"flutter::src::widgets::framework.dart::State" <|-- "skillhub_apl2::screens::detail_kelas_page.dart::_DetailKelasPageState"
+
+class "skillhub_apl2::screens::detail_peserta_page.dart::DetailPesertaPage" {
+  +Peserta peserta
+  +Widget build()
+}
+
+"skillhub_apl2::screens::detail_peserta_page.dart::DetailPesertaPage" o-- "skillhub_apl2::models::peserta_model.dart::Peserta"
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "skillhub_apl2::screens::detail_peserta_page.dart::DetailPesertaPage"
+
+class "skillhub_apl2::screens::kelas_page.dart::KelasPage" {
+  +State<KelasPage> createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "skillhub_apl2::screens::kelas_page.dart::KelasPage"
+
+class "skillhub_apl2::screens::kelas_page.dart::_KelasPageState" {
+  -DatabaseHelper _dbHelper
+  -List<Kelas> _listKelas
+  +void initState()
+  -void _refreshData()
+  -void _showForm()
+  -void _deleteItem()
+  +Widget build()
+}
+
+"skillhub_apl2::screens::kelas_page.dart::_KelasPageState" o-- "skillhub_apl2::db::database_helper.dart::DatabaseHelper"
+"flutter::src::widgets::framework.dart::State" <|-- "skillhub_apl2::screens::kelas_page.dart::_KelasPageState"
+
+class "skillhub_apl2::screens::pendaftaran_page.dart::PendaftaranPage" {
+  +State<PendaftaranPage> createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "skillhub_apl2::screens::pendaftaran_page.dart::PendaftaranPage"
+
+class "skillhub_apl2::screens::pendaftaran_page.dart::_PendaftaranPageState" {
+  -DatabaseHelper _dbHelper
+  -List<Peserta> _listPeserta
+  -List<Kelas> _listKelas
+  -int? _selectedPesertaId
+  -int? _selectedKelasId
+  +void initState()
+  -void _loadData()
+  -void _submitPendaftaran()
+  +Widget build()
+}
+
+"skillhub_apl2::screens::pendaftaran_page.dart::_PendaftaranPageState" o-- "skillhub_apl2::db::database_helper.dart::DatabaseHelper"
+"flutter::src::widgets::framework.dart::State" <|-- "skillhub_apl2::screens::pendaftaran_page.dart::_PendaftaranPageState"
+
+class "skillhub_apl2::main.dart::MyApp" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "skillhub_apl2::main.dart::MyApp"
+
+class "skillhub_apl2::main.dart::MainScreen" {
+  +State<MainScreen> createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "skillhub_apl2::main.dart::MainScreen"
+
+class "skillhub_apl2::main.dart::_MainScreenState" {
+  -int _selectedIndex
+  -List<Widget> _pages
+  -void _onItemTapped()
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::State" <|-- "skillhub_apl2::main.dart::_MainScreenState"
+
+class "skillhub_apl2::db::database_helper.dart::DatabaseHelper" {
+  {static} -DatabaseHelper _instance
+  {static} -Database? _database
+  +dynamic database
+  -dynamic _initDatabase()
+  +dynamic tambahPeserta()
+  +dynamic getPeserta()
+  +dynamic updatePeserta()
+  +dynamic deletePeserta()
+  +dynamic tambahKelas()
+  +dynamic getKelas()
+  +dynamic updateKelas()
+  +dynamic deleteKelas()
+  +dynamic daftarKelas()
+  +dynamic getKelasByPesertaId()
+  +dynamic getPesertaByKelasId()
+  +dynamic hapusPendaftaran()
+}
+
+"skillhub_apl2::db::database_helper.dart::DatabaseHelper" o-- "skillhub_apl2::db::database_helper.dart::DatabaseHelper"
+"skillhub_apl2::db::database_helper.dart::DatabaseHelper" o-- "sqflite_common::sqlite_api.dart::Database"
+
+
+@enduml
