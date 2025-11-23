@@ -29,6 +29,8 @@ class _PesertaPageState extends State<PesertaPage> {
 
   void _showForm(Peserta? peserta) {
     final nameController = TextEditingController(text: peserta?.nama);
+    final emailController = TextEditingController(text: peserta?.email);
+    final noHpController = TextEditingController(text: peserta?.noHp);
 
     final formKey = GlobalKey<FormState>();
     
@@ -52,6 +54,33 @@ class _PesertaPageState extends State<PesertaPage> {
                     return null;
                   },
                 ),
+                TextFormField(
+                  controller: emailController,
+                  decoration: const InputDecoration(
+                    labelText: "Email",
+                    prefixIcon: Icon(Icons.email),
+                  ),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Email wajib diisi';
+                    }
+                    return null;
+                  },
+                ),
+                TextFormField(
+                  controller: noHpController,
+                  decoration: const InputDecoration(
+                    labelText: "Nomor HP / WA",
+                    prefixIcon: Icon(Icons.phone),
+                  ),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Nomor HP wajib diisi';
+                    }
+                    return null;
+                  },
+                  keyboardType: TextInputType.phone,
+                ),
               ],
             )
           ),
@@ -63,6 +92,8 @@ class _PesertaPageState extends State<PesertaPage> {
               if (formKey.currentState!.validate()){
                 final p = Peserta(
                   nameController.text, 
+                  emailController.text,
+                  noHpController.text,
                   id: peserta?.id
                 );
                 // if (nameController.text.isEmpty) return;
@@ -104,7 +135,8 @@ class _PesertaPageState extends State<PesertaPage> {
             margin: const EdgeInsets.all(8),
             child: ListTile(
               leading: CircleAvatar(child: Text(item.nama[0])),
-              title: Text(item.nama, style: const TextStyle(fontWeight: FontWeight.bold)),
+              title: Text("${item.nama} / ${item.email}",
+              style: const TextStyle(fontWeight: FontWeight.bold)),
               trailing: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [

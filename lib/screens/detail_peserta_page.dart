@@ -24,7 +24,7 @@ class DetailPesertaPage extends StatelessWidget {
                 const Icon(Icons.person, size: 80, color: Colors.blue),
                 const SizedBox(height: 10),
                 Text(peserta.nama, style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
-                Text("ID: ${peserta.id}"),
+                Text("ID: ${peserta.id} | Email: ${peserta.email} | No HP: ${peserta.noHp}", style: const TextStyle(fontSize: 16)),
               ],
             ),
           ),

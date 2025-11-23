@@ -21,7 +21,7 @@ class DatabaseHelper {
   }
 
   Future<Database> _initDatabase() async {
-    String path = join(await getDatabasesPath(), 'skillhub.db'); 
+    String path = join(await getDatabasesPath(), 'skillhub_1.db'); 
     return await openDatabase(
       path,
       version: 1,
@@ -30,7 +30,9 @@ class DatabaseHelper {
         await db.execute('''
           CREATE TABLE peserta(
             id INTEGER PRIMARY KEY AUTOINCREMENT, 
-            nama TEXT
+            nama TEXT, 
+            email TEXT,
+            no_hp TEXT
           )
         ''');
 
@@ -182,7 +184,12 @@ class DatabaseHelper {
 
     return List.generate(maps.length, (i) {
       return PesertaTerdaftar(
-        peserta: Peserta.fromMap(maps[i]), 
+        peserta: Peserta(
+          maps[i]['nama'], 
+          maps[i]['email'], 
+          maps[i]['no_hp'],
+          id: maps[i]['id']
+        ), 
         tanggal: maps[i]['tanggal_pendaftaran']
       );
     });

@@ -95,7 +95,10 @@ class _PendaftaranPageState extends State<PendaftaranPage> {
               items: _listPeserta.map((Peserta p) {
                 return DropdownMenuItem<int>(
                   value: p.id,
-                  child: Text(p.nama),
+                  child: Text("${p.nama} | ${p.email} | ${p.noHp}", 
+                  overflow: TextOverflow.ellipsis,
+                  style: const TextStyle(fontSize: 14),
+                  ),
                 );
               }).toList(),
               onChanged: (value) {
